@@ -1,6 +1,12 @@
 import axios from "axios";
 import Constants from "../../utility/Constants";
 
+/**
+ * @name GetReservations
+ * @description Http Call to GET all Reservations
+ * @param {*} setReservation 
+ * @param {*} setApiError 
+ */
 export async function GetReservations(setReservation, setApiError) {
     await axios.get(Constants.BASE_URL_API + Constants.RESERVATIONS)
         .then((response) => {
@@ -10,6 +16,14 @@ export async function GetReservations(setReservation, setApiError) {
             setApiError(true);
         })
 };
+
+/**
+ * @name GetReservationByID
+ * @description Http Call to GET Reservation given ID
+ * @param {} id 
+ * @param {*} setReservation 
+ * @param {*} setApiError 
+ */
 
 export async function GetReservationByID(id, setReservation, setApiError) {
     await axios.get(`${Constants.BASE_URL_API} + ${Constants.RESERVATIONS}+ '/' + ${id}`)
@@ -21,6 +35,12 @@ export async function GetReservationByID(id, setReservation, setApiError) {
         })
 };
 
+
+/**
+ * @name DeleteReservationByID
+ * @description Deletes Reservation from given ID
+ * @param {*} id 
+ */
 export async function DeleteReservationByID(id){
     await axios.delete(`${Constants.BASE_URL_API} + ${Constants.RESERVATIONS}+ '/' + ${id}`)
     .then(()=>{
@@ -29,8 +49,14 @@ export async function DeleteReservationByID(id){
     })
 };
 
-
-export async function PostReservations(Reservation, setReservation, setApiError) {
+/**
+ * @name PostReservation
+ * @description Http POST reservation object 
+ * @param {*} Reservation 
+ * @param {*} setReservation 
+ * @param {*} setApiError 
+ */
+export async function PostReservation(Reservation, setReservation, setApiError) {
     await axios.post(Constants.BASE_URL_API + Constants.RESERVATIONS,
         Reservation)
         .then((response) => {
@@ -41,7 +67,14 @@ export async function PostReservations(Reservation, setReservation, setApiError)
         })
 };
 
-export async function updateRoomStatus(roomStatus, id, setApiError){
+/**
+ * @name UpdateRoomStatus
+ * @description Changes is clean to either true or false
+ * @param {*} roomStatus 
+ * @param {*} id 
+ * @param {*} setApiError 
+ */
+export async function UpdateRoomStatus(roomStatus, id, setApiError){
     await axios.patch(`${Constants.BASE_URL_API} + ${Constants.RESERVATIONS}+ '/' + ${id}`,
     roomStatus)
     .catch(() => {

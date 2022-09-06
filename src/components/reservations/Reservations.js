@@ -3,23 +3,26 @@ import { GetReservations } from './ReservationService';
 import Constants from '../../utility/Constants';
 const Reservations = () => {
 
- const [reservations, setReservations] = useState({});
- const [apiError, setApiError] = useState(false);
+  const [reservations, setReservations] = useState([]);
+  const [apiError, setApiError] = useState(false);
 
- //sends Http Get call to Set Reservations. 
+  //sends Http Get call to Set Reservations. 
   useEffect(() => {
     GetReservations(setReservations, setApiError);
-  },[]);
+  }, []);
 
- if(apiError){
+  if (apiError) {
+    return (
+      <h1>{Constants.API_ERROR}</h1>
+    )
+  };
   return (
-    <h1>Connection Error. Contact IT Admin.</h1>
+    <div>
+      {reservations && reservations.map(res => {
+        return <h1 key={res.id} >{res.guestEmail}</h1>
+      })}
+    </div>
   )
- }
-  return (
-    <div>Reservations</div>
-  )
- 
-}
+};
 
 export default Reservations;
